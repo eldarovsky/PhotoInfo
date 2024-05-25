@@ -14,13 +14,13 @@ enum NetworkError: Error {
     case noData
 }
 
-final class NetworkManager {
+protocol ImageLoaderProtocol {
+    func loadImage(fromURL url: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
+}
 
-    static let shared = NetworkManager()
+final class ImageLoader: ImageLoaderProtocol {
 
-    private init() {}
-
-    func fetchImage(fromURL url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+    func loadImage(fromURL url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         guard let imageURL = URL(string: url) else {
             completion(.failure(.invalidURL))
             return
