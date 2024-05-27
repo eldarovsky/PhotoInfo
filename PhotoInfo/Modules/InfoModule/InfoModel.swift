@@ -2,11 +2,9 @@
 //  InfoModel.swift
 //  PhotoInfo
 //
-//  Created by Эльдар Абдуллин on 27.05.2024.
+//  Created by Eldar Abdullin on 27.05.2024.
 //  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
-
-import Foundation
 
 struct ImageMetadata {
     let dateTimeOriginal: String?
@@ -60,20 +58,6 @@ struct ImageMetadata {
         if let location = location {
             metadataString += "Location: \(location)\n"
         }
-
-
-
-        if let latitude = latitude {
-            metadataString += "latitude: \(latitude)\n"
-        }
-        if let longitude = longitude {
-            metadataString += "longitude: \(longitude)\n"
-        }
-        if let imgDirection = imgDirection {
-            metadataString += "imgDirection: \(imgDirection)\n"
-        }
-
-
 
         return metadataString.isEmpty ? "No metadata was found" : metadataString
     }

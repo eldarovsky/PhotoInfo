@@ -2,46 +2,42 @@
 //  MapViewController.swift
 //  PhotoInfo
 //
-//  Created by Эльдар Абдуллин on 24.05.2024.
+//  Created by Eldar Abdullin on 24.05.2024.
+//  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
 import UIKit
 import YandexMapsMobile
 
-final class MapViewController: UIViewController, MapViewProtocol {
+protocol MapViewControllerProtocol: AnyObject {
+    func showPlace(position: YMKCameraPosition)
+}
+
+final class MapViewController: UIViewController {
 
     // MARK: - Private properties
 
     private let mapView = YMKMapView()
-    private var presenter: MapPresenter?
+
+    weak var mapViewControllerCoordinator: MapViewControllerCoordinator?
+    var presenter: MapPresenterProtocol?
 
     // MARK: - Life cycle methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        presenter?.showPlace()
     }
 
     // MARK: - Initializers
 
-    init(position: YMKCameraPosition) {
-        let model = MapModel(position: position)
+    init() {
         super.init(nibName: nil, bundle: nil)
-        self.presenter = MapPresenter(view: self, model: model)
-        self.presenter?.showPlace(position: model.position)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: - MapView
-
-    func showPlace(position: YMKCameraPosition) {
-        mapView.mapWindow.map.move(
-            with: position,
-            animation: YMKAnimation(type: YMKAnimationType.smooth, duration: 5),
-            cameraCallback: nil)
     }
 
     // MARK: - Private methods
@@ -90,8 +86,19 @@ final class MapViewController: UIViewController, MapViewProtocol {
     private func addPlacemarkOnMap() {
         let placemark = mapView.mapWindow.map.mapObjects.addPlacemark()
 
-        guard let target = presenter?.model.position.target else { return }
+        guard let target = presenter?.getTarget() else { return }
+        guard let icon = UIImage(systemName: "camera.fill") else { return }
+
         placemark.geometry = target
-        placemark.setIconWith(UIImage(systemName: "mappin")!)
+        placemark.setIconWith(icon)
+    }
+}
+
+extension MapViewController: MapViewControllerProtocol {
+    func showPlace(position: YMKCameraPosition) {
+        mapView.mapWindow.map.move(
+            with: position,
+            animation: YMKAnimation(type: YMKAnimationType.smooth, duration: 5),
+            cameraCallback: nil)
     }
 }

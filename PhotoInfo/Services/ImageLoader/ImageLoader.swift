@@ -1,8 +1,9 @@
 //
 //  ImageLoader.swift
+//  PhotoInfo
 //
-//
-//  Created by Эльдар Абдуллин on 24.05.2024.
+//  Created by Eldar Abdullin on 24.05.2024.
+//  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
 import Foundation

@@ -2,7 +2,8 @@
 //  AppDelegate.swift
 //  PhotoInfo
 //
-//  Created by Эльдар Абдуллин on 23.05.2024.
+//  Created by Eldar Abdullin on 23.05.2024.
+//  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
 import UIKit

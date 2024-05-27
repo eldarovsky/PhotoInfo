@@ -2,7 +2,8 @@
 //  SceneDelegate.swift
 //  PhotoInfo
 //
-//  Created by Эльдар Абдуллин on 23.05.2024.
+//  Created by Eldar Abdullin on 23.05.2024.
+//  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
 import UIKit
@@ -10,18 +11,15 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var appCoordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
 
-        let imageLoader = ImageLoader()
-        let infoPresenter = InfoPresenter(imageLoader: imageLoader)
-        let infoViewController = InfoViewController(presenter: infoPresenter)
-        infoPresenter.view = infoViewController
-
-        window?.rootViewController = UINavigationController(rootViewController: infoViewController)
-        window?.makeKeyAndVisible()
-        window?.backgroundColor = .tertiarySystemGroupedBackground
+        if let window {
+            appCoordinator = AppCoordinator(window: window)
+            appCoordinator?.start()
+        }
     }
 }

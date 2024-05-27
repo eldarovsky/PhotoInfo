@@ -2,7 +2,7 @@
 //  InfoPresenter.swift
 //  PhotoInfo
 //
-//  Created by Эльдар Абдуллин on 27.05.2024.
+//  Created by Eldar Abdullin on 27.05.2024.
 //  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
@@ -13,6 +13,8 @@ final class InfoPresenter {
     weak var view: InfoViewControllerProtocol?
     private let imageLoader: ImageLoader
     private var position: YMKCameraPosition?
+    weak var infoViewControllerCoordinator: InfoViewControllerCoordinator?
+
 
     init(imageLoader: ImageLoader) {
         self.imageLoader = imageLoader
@@ -36,7 +38,8 @@ final class InfoPresenter {
 
     func showLocation() {
         guard let position = position else { return }
-        view?.navigateToMap(with: position)
+        let mapModel = MapModel(position: position)
+        infoViewControllerCoordinator?.runMapView(model: mapModel)
     }
 
     func loadImage(from urlString: String) {

@@ -2,7 +2,7 @@
 //  InfoViewController.swift
 //  PhotoInfo
 //
-//  Created by Эльдар Абдуллин on 23.05.2024.
+//  Created by Eldar Abdullin on 23.05.2024.
 //  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
@@ -17,7 +17,6 @@ protocol InfoViewControllerProtocol: AnyObject {
     func hideActivityIndicator()
     func updateGreetingLabel(isHidden: Bool)
     func setMapButtonVisibility(isHidden: Bool)
-    func navigateToMap(with position: YMKCameraPosition)
     func showAlert(with title: String, message: String)
     func showPhotoPicker(with configuration: PHPickerConfiguration)
 }
@@ -67,7 +66,7 @@ final class InfoViewController: UIViewController {
         return mapButton
     }()
 
-    private let presenter: InfoPresenter
+    var presenter: InfoPresenter?
 
     // MARK: - Life cycle methods
 
@@ -75,13 +74,12 @@ final class InfoViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         addActions()
-        presenter.requestPhotoLibraryAccess()
+        presenter?.requestPhotoLibraryAccess()
     }
 
     // MARK: - Initializers
 
-    init(presenter: InfoPresenter) {
-        self.presenter = presenter
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -92,15 +90,15 @@ final class InfoViewController: UIViewController {
     // MARK: - Private methods
 
     @objc private func pickImageFromWeb() {
-        presenter.showLinkTextField()
+        presenter?.showLinkTextField()
     }
 
     @objc private func pickImageFromPhotos() {
-        presenter.showPhotos()
+        presenter?.showPhotos()
     }
 
     @objc private func showImageLocation() {
-        presenter.showLocation()
+        presenter?.showLocation()
     }
 }
 
@@ -171,7 +169,6 @@ private extension InfoViewController {
     }
 }
 
-// Методы для обновления UI из презентера
 extension InfoViewController: InfoViewControllerProtocol {
     
     func displayImage(_ image: UIImage) {
@@ -198,11 +195,6 @@ extension InfoViewController: InfoViewControllerProtocol {
         mapButton.isHidden = isHidden
     }
 
-    func navigateToMap(with position: YMKCameraPosition) {
-        let mapVC = MapViewController(position: position)
-        navigationController?.pushViewController(mapVC, animated: true)
-    }
-
     func showAlert(with title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
@@ -215,7 +207,7 @@ extension InfoViewController: InfoViewControllerProtocol {
             guard let textField = alert.textFields?.first else { return }
             guard let imageURL = textField.text, !imageURL.isEmpty else { return }
 
-            self.presenter.loadImage(from: imageURL)
+            self.presenter?.loadImage(from: imageURL)
         }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
