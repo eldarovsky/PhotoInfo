@@ -1,11 +1,11 @@
 //
-//  NetworkManager.swift
+//  ImageLoader.swift
 //
 //
 //  Created by Эльдар Абдуллин on 24.05.2024.
 //
 
-import UIKit
+import Foundation
 
 enum NetworkError: Error {
     case invalidURL

@@ -16,7 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
 
         let imageLoader = ImageLoader()
-        let infoViewController = InfoViewController(imageLoader: imageLoader)
+        let infoPresenter = InfoPresenter(imageLoader: imageLoader)
+        let infoViewController = InfoViewController(presenter: infoPresenter)
+        infoPresenter.view = infoViewController
 
         window?.rootViewController = UINavigationController(rootViewController: infoViewController)
         window?.makeKeyAndVisible()
