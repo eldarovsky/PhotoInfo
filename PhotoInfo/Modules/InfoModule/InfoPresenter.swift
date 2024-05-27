@@ -86,7 +86,7 @@ final class InfoPresenter {
             position = YMKCameraPosition(
                 target: YMKPoint(latitude: latitude, longitude: longitude),
                 zoom: 15,
-                azimuth: Float(imageMetadata.imgDirection ?? 0),
+                azimuth: -90 - Float(imageMetadata.imgDirection ?? 0),
                 tilt: 0
             )
             view?.setMapButtonVisibility(isHidden: false)

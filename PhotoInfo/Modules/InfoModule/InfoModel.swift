@@ -61,6 +61,20 @@ struct ImageMetadata {
             metadataString += "Location: \(location)\n"
         }
 
+
+
+        if let latitude = latitude {
+            metadataString += "latitude: \(latitude)\n"
+        }
+        if let longitude = longitude {
+            metadataString += "longitude: \(longitude)\n"
+        }
+        if let imgDirection = imgDirection {
+            metadataString += "imgDirection: \(imgDirection)\n"
+        }
+
+
+
         return metadataString.isEmpty ? "No metadata was found" : metadataString
     }
 }

@@ -8,13 +8,12 @@
 import UIKit
 import YandexMapsMobile
 
-final class MapViewController: UIViewController {
+final class MapViewController: UIViewController, MapViewProtocol {
 
     // MARK: - Private properties
 
     private let mapView = YMKMapView()
-
-    private var position: YMKCameraPosition
+    private var presenter: MapPresenter?
 
     // MARK: - Life cycle methods
 
@@ -26,12 +25,23 @@ final class MapViewController: UIViewController {
     // MARK: - Initializers
 
     init(position: YMKCameraPosition) {
-        self.position = position
+        let model = MapModel(position: position)
         super.init(nibName: nil, bundle: nil)
+        self.presenter = MapPresenter(view: self, model: model)
+        self.presenter?.showPlace(position: model.position)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - MapView
+
+    func showPlace(position: YMKCameraPosition) {
+        mapView.mapWindow.map.move(
+            with: position,
+            animation: YMKAnimation(type: YMKAnimationType.smooth, duration: 5),
+            cameraCallback: nil)
     }
 
     // MARK: - Private methods
@@ -39,26 +49,19 @@ final class MapViewController: UIViewController {
     @objc private func close() {
         navigationController?.popViewController(animated: true)
     }
-}
 
-private extension MapViewController {
-
-    func setupView() {
+    private func setupView() {
         addSubviews()
         setupLayout()
         setupNavigationBar()
-
-        showPlace(position: position)
         addPlacemarkOnMap()
     }
-}
 
-private extension MapViewController {
-    func addSubviews() {
+    private func addSubviews() {
         view.addSubview(mapView)
     }
 
-    func setupLayout() {
+    private func setupLayout() {
         mapView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
@@ -69,7 +72,7 @@ private extension MapViewController {
         ])
     }
 
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         navigationItem.hidesBackButton = true
 
         let closeButton = UIBarButtonItem(
@@ -84,16 +87,11 @@ private extension MapViewController {
         navigationItem.rightBarButtonItem = closeButton
     }
 
-    func showPlace(position: YMKCameraPosition) {
-        mapView.mapWindow.map.move(
-            with: position,
-            animation: YMKAnimation(type: YMKAnimationType.smooth, duration: 5),
-            cameraCallback: nil)
-    }
-
-    func addPlacemarkOnMap() {
+    private func addPlacemarkOnMap() {
         let placemark = mapView.mapWindow.map.mapObjects.addPlacemark()
-        placemark.geometry = position.target
+
+        guard let target = presenter?.model.position.target else { return }
+        placemark.geometry = target
         placemark.setIconWith(UIImage(systemName: "mappin")!)
     }
 }
