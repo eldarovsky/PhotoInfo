@@ -14,9 +14,9 @@ final class AppCoordinator: BaseCoordinator {
 
     // MARK: - Private properties
 
-    private var window: UIWindow
+    private let window: UIWindow
 
-    private var navigationController = UINavigationController()
+    private let navigationController = UINavigationController()
 
     // MARK: - Initializers
 

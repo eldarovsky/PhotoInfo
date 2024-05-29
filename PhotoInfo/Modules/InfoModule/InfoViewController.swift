@@ -10,18 +10,26 @@ import UIKit
 import PhotosUI
 import YandexMapsMobile
 
+// MARK: - Info view controller protocol
+
 protocol InfoViewControllerProtocol: AnyObject {
     func displayImage(_ image: UIImage)
     func displayMetadata(_ metadata: String)
     func showActivityIndicator()
     func hideActivityIndicator()
-    func updateGreetingLabel(isHidden: Bool)
+    func hideGreetingLabel(isHidden: Bool)
     func setMapButtonVisibility(isHidden: Bool)
     func showAlert(with title: String, message: String)
     func showPhotoPicker(with configuration: PHPickerConfiguration)
 }
 
+// MARK: - Info view controller
+
 final class InfoViewController: UIViewController {
+
+    // MARK: - Public properties
+
+    var presenter: InfoPresenterProtocol?
 
     // MARK: - Private properties
 
@@ -55,26 +63,24 @@ final class InfoViewController: UIViewController {
         return infoTextView
     }()
 
-    private let mapButton: UIButton = {
-        let mapButton = UIButton()
-        mapButton.isHidden = true
-        mapButton.setTitle("Location", for: .normal)
-        mapButton.setTitleColor(.gray, for: .highlighted)
-        mapButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        mapButton.backgroundColor = .systemGreen
-        mapButton.layer.cornerRadius = 8
-        return mapButton
+    private let locationButton: UIButton = {
+        let locationButton = UIButton()
+        locationButton.isHidden = true
+        locationButton.setTitle("Location", for: .normal)
+        locationButton.setTitleColor(.gray, for: .highlighted)
+        locationButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        locationButton.backgroundColor = .systemGreen
+        locationButton.layer.cornerRadius = 8
+        return locationButton
     }()
-
-    var presenter: InfoPresenter?
 
     // MARK: - Life cycle methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        setupViews()
         addActions()
-        presenter?.requestPhotoLibraryAccess()
+        requestPhotoLibraryAccess()
     }
 
     // MARK: - Initializers
@@ -104,20 +110,36 @@ final class InfoViewController: UIViewController {
 
 private extension InfoViewController {
 
-    func setupView() {
-        view.backgroundColor = .tertiarySystemGroupedBackground
-
+    func setupViews() {
+        setupView()
         addSubviews()
         setupLayout()
         setupNavigationBar()
     }
 
     func addActions() {
-        mapButton.addTarget(self, action: #selector(showImageLocation), for: .touchUpInside)
+        locationButton.addTarget(self, action: #selector(showImageLocation), for: .touchUpInside)
+    }
+
+    func requestPhotoLibraryAccess() {
+        presenter?.requestAccess()
+    }
+}
+
+private extension InfoViewController {
+
+    func setupView() {
+        view.backgroundColor = .tertiarySystemGroupedBackground
     }
 
     func addSubviews() {
-        [imageView, activityIndicator, infoTextView, mapButton, greetingLabel].forEach { view.addSubview($0) }
+        [
+            imageView,
+            activityIndicator,
+            infoTextView,
+            locationButton,
+            greetingLabel
+        ].forEach { view.addSubview($0) }
     }
 
     func setupLayout() {
@@ -125,11 +147,9 @@ private extension InfoViewController {
             imageView,
             activityIndicator,
             infoTextView,
-            mapButton,
+            locationButton,
             greetingLabel
-        ].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints =  false
-        }
+        ].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 
         NSLayoutConstraint.activate([
             greetingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -143,15 +163,15 @@ private extension InfoViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
 
-            mapButton.widthAnchor.constraint(equalToConstant: 90),
-            mapButton.heightAnchor.constraint(equalToConstant: 35),
-            mapButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mapButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            locationButton.widthAnchor.constraint(equalToConstant: 90),
+            locationButton.heightAnchor.constraint(equalToConstant: 35),
+            locationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            locationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
 
             infoTextView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 20),
             infoTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             infoTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            infoTextView.bottomAnchor.constraint(equalTo: mapButton.topAnchor, constant: -20)
+            infoTextView.bottomAnchor.constraint(equalTo: locationButton.topAnchor, constant: -20)
         ])
     }
 
@@ -177,6 +197,8 @@ private extension InfoViewController {
     }
 }
 
+// MARK: - Info view controller protocol methods
+
 extension InfoViewController: InfoViewControllerProtocol {
 
     func displayImage(_ image: UIImage) {
@@ -195,12 +217,12 @@ extension InfoViewController: InfoViewControllerProtocol {
         activityIndicator.stopAnimating()
     }
 
-    func updateGreetingLabel(isHidden: Bool) {
+    func hideGreetingLabel(isHidden: Bool) {
         greetingLabel.isHidden = isHidden
     }
 
     func setMapButtonVisibility(isHidden: Bool) {
-        mapButton.isHidden = isHidden
+        locationButton.isHidden = isHidden
     }
 
     func showAlert(with title: String, message: String) {
@@ -228,7 +250,7 @@ extension InfoViewController: InfoViewControllerProtocol {
 
     func showPhotoPicker(with configuration: PHPickerConfiguration) {
         let pickerViewController = PHPickerViewController(configuration: configuration)
-        pickerViewController.delegate = self.presenter
+        pickerViewController.delegate = self.presenter as? PHPickerViewControllerDelegate
         present(pickerViewController, animated: true)
     }
 }

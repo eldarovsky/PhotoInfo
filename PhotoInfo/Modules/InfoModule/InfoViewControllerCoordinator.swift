@@ -14,7 +14,7 @@ final class InfoViewControllerCoordinator: BaseCoordinator {
 
     // MARK: - Private properties
 
-    private var navigationController: UINavigationController
+    private let navigationController: UINavigationController
 
     // MARK: - Initializers
 

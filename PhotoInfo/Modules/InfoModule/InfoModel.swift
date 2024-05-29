@@ -6,6 +6,8 @@
 //  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
+// MARK: - Image metadata model
+
 struct ImageMetadata {
     let dateTimeOriginal: String?
     let lensMake: String?

@@ -15,8 +15,8 @@ final class MapViewControllerCoordinator: BaseCoordinator {
 
     // MARK: - Private properties
 
-    private var navigationController: UINavigationController
-    private var model: MapModel
+    private let navigationController: UINavigationController
+    private let model: MapModel
 
     // MARK: - Initializers
 
@@ -34,7 +34,7 @@ final class MapViewControllerCoordinator: BaseCoordinator {
         mapPresenter.view = mapViewController
         mapViewController.presenter = mapPresenter
 
-        mapViewController.mapViewControllerCoordinator = self
+        mapPresenter.mapViewControllerCoordinator = self
         navigationController.pushViewController(mapViewController, animated: true)
     }
 }

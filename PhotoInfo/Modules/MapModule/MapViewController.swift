@@ -9,25 +9,30 @@
 import UIKit
 import YandexMapsMobile
 
+// MARK: - Map view controller protocol
+
 protocol MapViewControllerProtocol: AnyObject {
-    func showPlace(position: YMKCameraPosition)
+    func showLocation(position: YMKCameraPosition)
 }
 
+// MARK: - Map view controller
+
 final class MapViewController: UIViewController {
+
+    // MARK: - Public properties
+
+    var presenter: MapPresenterProtocol?
 
     // MARK: - Private properties
 
     private let mapView = YMKMapView()
 
-    weak var mapViewControllerCoordinator: MapViewControllerCoordinator?
-    var presenter: MapPresenterProtocol?
-
     // MARK: - Life cycle methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        presenter?.showPlace()
+        setupViews()
+        showLocation()
     }
 
     // MARK: - Initializers
@@ -46,18 +51,28 @@ final class MapViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    private func setupView() {
+    private func showLocation() {
+        presenter?.showLocation()
+    }
+}
+
+private extension MapViewController {
+
+    func setupViews() {
         addSubviews()
         setupLayout()
         setupNavigationBar()
         addPlacemarkOnMap()
     }
+}
 
-    private func addSubviews() {
+private extension MapViewController {
+
+    func addSubviews() {
         view.addSubview(mapView)
     }
 
-    private func setupLayout() {
+    func setupLayout() {
         mapView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
@@ -68,7 +83,7 @@ final class MapViewController: UIViewController {
         ])
     }
 
-    private func setupNavigationBar() {
+    func setupNavigationBar() {
         navigationItem.hidesBackButton = true
 
         let closeButton = UIBarButtonItem(
@@ -83,19 +98,21 @@ final class MapViewController: UIViewController {
         navigationItem.rightBarButtonItem = closeButton
     }
 
-    private func addPlacemarkOnMap() {
+    func addPlacemarkOnMap() {
         let placemark = mapView.mapWindow.map.mapObjects.addPlacemark()
 
         guard let target = presenter?.getTarget() else { return }
-        guard let icon = UIImage(systemName: "camera.fill") else { return }
+        guard let icon = UIImage(systemName: "arrowshape.up.circle.fill") else { return }
 
         placemark.geometry = target
         placemark.setIconWith(icon)
     }
 }
 
+// MARK: - Map view controller protocol methods
+
 extension MapViewController: MapViewControllerProtocol {
-    func showPlace(position: YMKCameraPosition) {
+    func showLocation(position: YMKCameraPosition) {
         mapView.mapWindow.map.move(
             with: position,
             animation: YMKAnimation(type: YMKAnimationType.smooth, duration: 5),

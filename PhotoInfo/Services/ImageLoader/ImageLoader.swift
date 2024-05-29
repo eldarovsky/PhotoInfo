@@ -16,12 +16,12 @@ enum NetworkError: Error {
 }
 
 protocol ImageLoaderProtocol {
-    func loadImage(fromURL url: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
+    func loadImage(from url: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
 }
 
 final class ImageLoader: ImageLoaderProtocol {
 
-    func loadImage(fromURL url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+    func loadImage(from url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         guard let imageURL = URL(string: url) else {
             completion(.failure(.invalidURL))
             return

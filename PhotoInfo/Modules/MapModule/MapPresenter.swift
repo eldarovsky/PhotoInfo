@@ -8,24 +8,39 @@
 
 import YandexMapsMobile
 
-protocol MapPresenterProtocol: AnyObject {
-    func showPlace()
+// MARK: - Map presenter protocol
+
+protocol MapPresenterProtocol {
+    func showLocation()
     func getTarget() -> YMKPoint
 }
 
+// MARK: - Map presenter
+
 final class MapPresenter {
+
+    // MARK: - Public properties
+
+    weak var mapViewControllerCoordinator: MapViewControllerCoordinator?
     weak var view: MapViewControllerProtocol?
+
+    // MARK: - Private properties
+
     private let model: MapModel
+
+    // MARK: - Initializers
 
     init(model: MapModel) {
         self.model = model
     }
 }
 
+// MARK: - Map presenter protocol methods
+
 extension MapPresenter: MapPresenterProtocol {
-    func showPlace() {
+    func showLocation() {
         let position = model.position
-        view?.showPlace(position: position)
+        view?.showLocation(position: position)
     }
 
     func getTarget() -> YMKPoint {

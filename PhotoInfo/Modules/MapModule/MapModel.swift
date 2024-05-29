@@ -8,6 +8,8 @@
 
 import YandexMapsMobile
 
+// MARK: - Map model
+
 struct MapModel {
     let position: YMKCameraPosition
 }
