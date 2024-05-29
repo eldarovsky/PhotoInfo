@@ -25,42 +25,25 @@ struct ImageMetadata {
     let imgDirection: Double?
 
     func toString() -> String {
-        var metadataString = ""
+        let metadataItems: [(String, String?)] = [
+            ("Date Time", dateTimeOriginal),
+            ("Lens Make", lensMake),
+            ("Lens Model", lensModel),
+            ("Aperture", aperture),
+            ("Focal Length (original)", focalLength),
+            ("Focal Length (in 35mm film)", focalLenIn35mmFilm),
+            ("Shutter Speed", shutterSpeed),
+            ("ISO", iso),
+            ("Color Space", colorSpace),
+            ("City", city),
+            ("Location", location)
+        ]
 
-        if let dateTimeOriginal = dateTimeOriginal {
-            metadataString += "Date Time: \(dateTimeOriginal)\n"
-        }
-        if let lensMake = lensMake {
-            metadataString += "Lens Make: \(lensMake)\n"
-        }
-        if let lensModel = lensModel {
-            metadataString += "Lens Model: \(lensModel)\n"
-        }
-        if let aperture = aperture {
-            metadataString += "Aperture: \(aperture)\n"
-        }
-        if let focalLength = focalLength {
-            metadataString += "Focal Length (original): \(focalLength)\n"
-        }
-        if let focalLenIn35mmFilm = focalLenIn35mmFilm {
-            metadataString += "Focal Length (in 35mm film): \(focalLenIn35mmFilm)\n"
-        }
-        if let shutterSpeed = shutterSpeed {
-            metadataString += "Shutter Speed: \(shutterSpeed)\n"
-        }
-        if let iso = iso {
-            metadataString += "ISO: \(iso)\n"
-        }
-        if let colorSpace = colorSpace {
-            metadataString += "Color Space: \(colorSpace)\n"
-        }
-        if let city = city {
-            metadataString += "City: \(city)\n"
-        }
-        if let location = location {
-            metadataString += "Location: \(location)\n"
+        let metadataStrings: [String] = metadataItems.compactMap { label, value in
+            guard let value = value else { return nil }
+            return "\(label): \(value)\n"
         }
 
-        return metadataString.isEmpty ? "No metadata was found" : metadataString
+        return metadataStrings.isEmpty ? "No metadata was found" : metadataStrings.joined()
     }
 }

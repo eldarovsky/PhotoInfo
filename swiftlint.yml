@@ -1,8 +1,0 @@
-disabled_rules:
-    - trailing_whitespace
-
-cyclomatic_complexity:
-    ignores_case_statements: true
-
-excluded:
-    - Pods
