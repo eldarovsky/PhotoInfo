@@ -57,7 +57,7 @@ final class InfoPresenter {
         }
     }
 
-    func extractMetadata(from data: Data) {
+    private func extractMetadata(from data: Data) {
         view?.showActivityIndicator()
         view?.updateGreetingLabel(isHidden: true)
 

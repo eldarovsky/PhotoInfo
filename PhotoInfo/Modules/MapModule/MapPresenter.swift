@@ -13,9 +13,9 @@ protocol MapPresenterProtocol: AnyObject {
     func getTarget() -> YMKPoint
 }
 
-class MapPresenter {
+final class MapPresenter {
     weak var view: MapViewControllerProtocol?
-    let model: MapModel
+    private let model: MapModel
 
     init(model: MapModel) {
         self.model = model
