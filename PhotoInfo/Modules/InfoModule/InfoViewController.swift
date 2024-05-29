@@ -121,7 +121,15 @@ private extension InfoViewController {
     }
 
     func setupLayout() {
-        [imageView, activityIndicator, infoTextView, mapButton, greetingLabel].forEach { $0.translatesAutoresizingMaskIntoConstraints =  false }
+        [
+            imageView,
+            activityIndicator,
+            infoTextView,
+            mapButton,
+            greetingLabel
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints =  false
+        }
 
         NSLayoutConstraint.activate([
             greetingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -170,7 +178,7 @@ private extension InfoViewController {
 }
 
 extension InfoViewController: InfoViewControllerProtocol {
-    
+
     func displayImage(_ image: UIImage) {
         imageView.image = image
     }

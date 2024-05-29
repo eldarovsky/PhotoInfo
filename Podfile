@@ -8,5 +8,6 @@ target 'PhotoInfo' do
   # Pods for PhotoInfo
 
 pod 'YandexMapsMobile', '4.6.1-lite'
+pod 'SwiftLint'
 
 end

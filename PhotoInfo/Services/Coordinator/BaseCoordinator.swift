@@ -11,13 +11,13 @@ import Foundation
 // MARK: - Base coordinator
 
 class BaseCoordinator: CoordinatorProtocol {
-    
+
     // MARK: - Public properties
-    
+
     var childCoordinators: [CoordinatorProtocol] = []
-    
+
     // MARK: - Public methods
-    
+
     func start() {
         fatalError("Child should implement func Start")
     }

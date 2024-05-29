@@ -11,4 +11,3 @@ import YandexMapsMobile
 struct MapModel {
     let position: YMKCameraPosition
 }
-

@@ -15,6 +15,11 @@ final class InfoPresenter {
     private var position: YMKCameraPosition?
     weak var infoViewControllerCoordinator: InfoViewControllerCoordinator?
 
+    private let colorSpaceMapping: [Int: String] = [
+        1: "sRGB",
+        2: "Adobe RGB",
+        0xFFFF: "Uncalibrated"
+    ]
 
     init(imageLoader: ImageLoader) {
         self.imageLoader = imageLoader
@@ -114,12 +119,6 @@ final class InfoPresenter {
             return 1
         }
     }
-
-    private let colorSpaceMapping: [Int: String] = [
-        1: "sRGB",
-        2: "Adobe RGB",
-        0xFFFF: "Uncalibrated"
-    ]
 }
 
 extension InfoPresenter: PHPickerViewControllerDelegate {

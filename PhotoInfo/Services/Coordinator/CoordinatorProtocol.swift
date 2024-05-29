@@ -11,9 +11,9 @@ import Foundation
 // MARK: - Coordinator protocol
 
 protocol CoordinatorProtocol: AnyObject {
-    
+
     var childCoordinators: [CoordinatorProtocol] { get set }
-    
+
     func start ()
 }
 
@@ -24,7 +24,7 @@ extension CoordinatorProtocol {
     func add(coordinator: CoordinatorProtocol) {
         childCoordinators.append(coordinator)
     }
-    
+
     func remove(coordinator: CoordinatorProtocol) {
         childCoordinators = childCoordinators.filter { $0 !== coordinator }
     }

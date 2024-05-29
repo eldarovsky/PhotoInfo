@@ -39,7 +39,10 @@ final class InfoViewControllerCoordinator: BaseCoordinator {
     func runMapView(model: MapModel) {
         removeAllChildCoordinators()
 
-        let mapViewControllerCoordinator = MapViewControllerCoordinator(navigationController: navigationController, model: model)
+        let mapViewControllerCoordinator = MapViewControllerCoordinator(
+            navigationController: navigationController,
+            model: model
+        )
 
         add(coordinator: mapViewControllerCoordinator)
         mapViewControllerCoordinator.start()
