@@ -1,12 +1,14 @@
 //
-//  NetworkManager.swift
+//  ImageLoader.swift
+//  PhotoInfo
 //
-//
-//  Created by Эльдар Абдуллин on 24.05.2024.
+//  Created by Eldar Abdullin on 24.05.2024.
+//  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
+/// Enumeration representing different network errors that can occur while loading an image.
 enum NetworkError: Error {
     case invalidURL
     case networkError
@@ -14,13 +16,26 @@ enum NetworkError: Error {
     case noData
 }
 
+// MARK: - Image loader protocol
+
+/// Protocol defining the requirements for an image loader.
 protocol ImageLoaderProtocol {
-    func loadImage(fromURL url: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
+    func loadImage(from url: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
 }
+
+// MARK: - Image loader
 
 final class ImageLoader: ImageLoaderProtocol {
 
-    func loadImage(fromURL url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+    // MARK: - Public methods
+
+    /// Loads an image from the specified URL.
+    ///
+    /// - Parameters:
+    ///   - url: The URL string from which to load the image.
+    ///   - completion: A completion handler that gets called with the result of the image loading operation.
+    ///   The result can be either the image data or a `NetworkError`.
+    func loadImage(from url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         guard let imageURL = URL(string: url) else {
             completion(.failure(.invalidURL))
             return
