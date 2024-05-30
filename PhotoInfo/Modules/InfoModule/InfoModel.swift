@@ -10,6 +10,10 @@
 
 struct ImageMetadata {
     let dateTimeOriginal: String?
+
+    let brand: String?
+    let model: String?
+
     let lensMake: String?
     let lensModel: String?
     let aperture: String?
@@ -22,11 +26,12 @@ struct ImageMetadata {
     let location: String?
     let latitude: Double?
     let longitude: Double?
-    let imgDirection: Double?
 
     func toString() -> String {
         let metadataItems: [(String, String?)] = [
             ("Date Time", dateTimeOriginal),
+            ("Brand", brand),
+            ("Model", model),
             ("Lens Make", lensMake),
             ("Lens Model", lensModel),
             ("Aperture", aperture),

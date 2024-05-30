@@ -52,12 +52,15 @@ final class InfoPresenter {
         guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else { return }
         guard let metadata = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [CFString: Any] else { return }
 
+        let tiffData = metadata[kCGImagePropertyTIFFDictionary] as? [CFString: Any]
         let exifData = metadata[kCGImagePropertyExifDictionary] as? [CFString: Any]
         let iptcData = metadata[kCGImagePropertyIPTCDictionary] as? [CFString: Any]
         let gpsData = metadata[kCGImagePropertyGPSDictionary] as? [CFString: Any]
 
         let imageMetadata = ImageMetadata(
             dateTimeOriginal: exifData?[kCGImagePropertyExifDateTimeOriginal] as? String,
+            brand: tiffData?[kCGImagePropertyTIFFMake] as? String,
+            model: tiffData?[kCGImagePropertyTIFFModel] as? String,
             lensMake: exifData?[kCGImagePropertyExifLensMake] as? String,
             lensModel: exifData?[kCGImagePropertyExifLensModel] as? String,
             aperture: (exifData?[kCGImagePropertyExifApertureValue] as? Double).map {
@@ -79,15 +82,14 @@ final class InfoPresenter {
             },
             longitude: (gpsData?[kCGImagePropertyGPSLongitude] as? Double).map {
                 setSign(side: gpsData?[kCGImagePropertyGPSLongitudeRef] as? String) * $0
-            },
-            imgDirection: gpsData?[kCGImagePropertyGPSImgDirection] as? Double
+            }
         )
 
         if let latitude = imageMetadata.latitude, let longitude = imageMetadata.longitude {
             position = YMKCameraPosition(
                 target: YMKPoint(latitude: latitude, longitude: longitude),
                 zoom: 15,
-                azimuth: -90 - Float(imageMetadata.imgDirection ?? 0),
+                azimuth: 0,
                 tilt: 0
             )
             view?.setMapButtonVisibility(isHidden: false)

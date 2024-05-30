@@ -102,7 +102,7 @@ private extension MapViewController {
         let placemark = mapView.mapWindow.map.mapObjects.addPlacemark()
 
         guard let target = presenter?.getTarget() else { return }
-        guard let icon = UIImage(systemName: "arrowshape.up.circle.fill") else { return }
+        guard let icon = UIImage(named: "PlacemarkIcon") else { return }
 
         placemark.geometry = target
         placemark.setIconWith(icon)
