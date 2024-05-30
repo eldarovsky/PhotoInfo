@@ -1,6 +1,6 @@
 <h1>PhotoInfo</h1>
 
-<p><strong>DESCRIPTION:</strong> .</p>
+<p><strong>DESCRIPTION:</strong> an application for viewing metadata and the location on the map where the photo was taken, if data is available. You can select an image from the phone's photo gallery or download it by URL.</p>
 <p><strong>DETAILS:</strong> UIKit, MVP-C, CocoaPods: <a href="https://yandex.ru/dev/mapkit/doc/en/ios/generated/getting_started">Yandex MapKit</a>, <a href="https://github.com/realm/SwiftLint">SwiftLint</a></p>
 <details>
 <summary><strong>INSTALLATION</strong></summary>
