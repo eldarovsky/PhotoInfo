@@ -10,6 +10,9 @@ import YandexMapsMobile
 
 // MARK: - Map model
 
+/// Model representing data for the map view.
 struct MapModel {
+
+    /// The camera position on the map.
     let position: YMKCameraPosition
 }

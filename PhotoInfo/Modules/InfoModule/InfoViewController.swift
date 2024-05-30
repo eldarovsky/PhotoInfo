@@ -12,33 +12,62 @@ import YandexMapsMobile
 
 // MARK: - Info view controller protocol
 
+/// Protocol defining methods to be implemented by the InfoViewController.
 protocol InfoViewControllerProtocol: AnyObject {
+
+    /// Display an image.
+    /// - Parameter image: The image to be displayed.
     func displayImage(_ image: UIImage)
+
+    /// Display metadata.
+    /// - Parameter metadata: The metadata to be displayed.
     func displayMetadata(_ metadata: String)
+
+    /// Show an activity indicator.
     func showActivityIndicator()
+
+    /// Hide the activity indicator.
     func hideActivityIndicator()
+
+    /// Hide the greeting label.
+    /// - Parameter isHidden: A Boolean value that determines whether the label is hidden.
     func hideGreetingLabel(isHidden: Bool)
+
+    /// Set the visibility of the map button.
+    /// - Parameter isHidden: A Boolean value that determines whether the map button is hidden.
     func setMapButtonVisibility(isHidden: Bool)
+
+    /// Show an alert with the given title and message.
+    /// - Parameters:
+    ///   - title: The title of the alert.
+    ///   - message: The message of the alert.
     func showAlert(with title: String, message: String)
+
+    /// Show a photo picker with the provided configuration.
+    /// - Parameter configuration: The configuration for the photo picker.
     func showPhotoPicker(with configuration: PHPickerConfiguration)
 }
 
 // MARK: - Info view controller
 
+/// View controller responsible for displaying information.
 final class InfoViewController: UIViewController {
 
     // MARK: - Public properties
 
+    /// Presenter for the info view controller.
     var presenter: InfoPresenterProtocol?
 
     // MARK: - Private properties
 
+    /// Label displaying a greeting message.
     private let greetingLabel: UILabel = {
         let greetingLabel = UILabel()
         greetingLabel.text = "Tap buttons to start"
         return greetingLabel
     }()
 
+    /// Image view displaying the selected image.
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -47,6 +76,7 @@ final class InfoViewController: UIViewController {
         return imageView
     }()
 
+    /// Activity indicator indicating loading activity.
     private let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .large
@@ -55,6 +85,7 @@ final class InfoViewController: UIViewController {
         return activityIndicator
     }()
 
+    /// Text view displaying metadata information.
     private let infoTextView: UITextView = {
         let infoTextView = UITextView()
         infoTextView.isEditable = false
@@ -63,6 +94,7 @@ final class InfoViewController: UIViewController {
         return infoTextView
     }()
 
+    /// Button for displaying image location.
     private let locationButton: UIButton = {
         let locationButton = UIButton()
         locationButton.isHidden = true
@@ -95,14 +127,17 @@ final class InfoViewController: UIViewController {
 
     // MARK: - Private methods
 
+    /// Action to pick an image from the web.
     @objc private func pickImageFromWeb() {
         presenter?.showLinkTextField()
     }
 
+    /// Action to pick an image from the photo library.
     @objc private func pickImageFromPhotos() {
         presenter?.showPhotos()
     }
 
+    /// Action to show the location of the image.
     @objc private func showImageLocation() {
         presenter?.showLocation()
     }
@@ -110,6 +145,7 @@ final class InfoViewController: UIViewController {
 
 private extension InfoViewController {
 
+    /// Setup initial views.
     func setupViews() {
         setupView()
         addSubviews()
@@ -117,10 +153,12 @@ private extension InfoViewController {
         setupNavigationBar()
     }
 
+    /// Add actions to UI elements.
     func addActions() {
         locationButton.addTarget(self, action: #selector(showImageLocation), for: .touchUpInside)
     }
 
+    /// Request access to the photo library.
     func requestPhotoLibraryAccess() {
         presenter?.requestAccess()
     }
@@ -128,10 +166,12 @@ private extension InfoViewController {
 
 private extension InfoViewController {
 
+    /// Setup the main view.
     func setupView() {
         view.backgroundColor = .tertiarySystemGroupedBackground
     }
 
+    /// Add subviews to the main view.
     func addSubviews() {
         [
             imageView,
@@ -142,6 +182,7 @@ private extension InfoViewController {
         ].forEach { view.addSubview($0) }
     }
 
+    /// Setup layout constraints for subviews.
     func setupLayout() {
         [
             imageView,
@@ -175,6 +216,7 @@ private extension InfoViewController {
         ])
     }
 
+    /// Setup navigation bar buttons.
     func setupNavigationBar() {
         let libraryPhotoButton = UIBarButtonItem(
             image: UIImage(systemName: "photo"),

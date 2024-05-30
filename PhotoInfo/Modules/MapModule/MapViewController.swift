@@ -11,20 +11,27 @@ import YandexMapsMobile
 
 // MARK: - Map view controller protocol
 
+/// Protocol defining the methods required by the MapViewController.
 protocol MapViewControllerProtocol: AnyObject {
+
+    /// Show the location on the map with the specified camera position.
+    /// - Parameter position: The camera position to show on the map.
     func showLocation(position: YMKCameraPosition)
 }
 
 // MARK: - Map view controller
 
+/// View controller responsible for displaying the map.
 final class MapViewController: UIViewController {
 
     // MARK: - Public properties
 
+    /// Presenter for the map view controller.
     var presenter: MapPresenterProtocol?
 
     // MARK: - Private properties
 
+    /// The map view.
     private let mapView = YMKMapView()
 
     // MARK: - Life cycle methods
@@ -37,6 +44,7 @@ final class MapViewController: UIViewController {
 
     // MARK: - Initializers
 
+    /// Initializes the MapViewController.
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -47,31 +55,35 @@ final class MapViewController: UIViewController {
 
     // MARK: - Private methods
 
+    /// Closes the view controller.
     @objc private func close() {
         navigationController?.popViewController(animated: true)
     }
 
+    /// Shows the location on the map.
     private func showLocation() {
         presenter?.showLocation()
     }
 }
 
+// MARK: - Private extensions
+
 private extension MapViewController {
 
+    /// Sets up the views.
     func setupViews() {
         addSubviews()
         setupLayout()
         setupNavigationBar()
         addPlacemarkOnMap()
     }
-}
 
-private extension MapViewController {
-
+    /// Adds subviews.
     func addSubviews() {
         view.addSubview(mapView)
     }
 
+    /// Sets up the layout constraints.
     func setupLayout() {
         mapView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -83,6 +95,7 @@ private extension MapViewController {
         ])
     }
 
+    /// Sets up the navigation bar.
     func setupNavigationBar() {
         navigationItem.hidesBackButton = true
 
@@ -98,6 +111,7 @@ private extension MapViewController {
         navigationItem.rightBarButtonItem = closeButton
     }
 
+    /// Adds a placemark on the map.
     func addPlacemarkOnMap() {
         let placemark = mapView.mapWindow.map.mapObjects.addPlacemark()
 

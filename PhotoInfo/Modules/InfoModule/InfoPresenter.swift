@@ -11,40 +11,64 @@ import YandexMapsMobile
 
 // MARK: - Info presenter protocol
 
+/// Protocol defining the methods required by the InfoPresenter.
 protocol InfoPresenterProtocol {
+
+    /// Request access to necessary resources.
     func requestAccess()
+
+    /// Show a text field for entering a direct image URL.
     func showLinkTextField()
+
+    /// Show the photo picker for selecting images from the photo library.
     func showPhotos()
+
+    /// Show the location of the selected image on the map.
     func showLocation()
+
+    /// Load an image from the given URL.
+    /// - Parameter url: The URL of the image to load.
     func loadImage(from url: String)
 }
 
 // MARK: - Info presenter
 
+/// Presenter responsible for handling business logic for the InfoViewController.
 final class InfoPresenter {
 
     // MARK: - Public properties
 
+    /// Coordinator for navigating to the map view.
     weak var infoViewControllerCoordinator: InfoViewControllerCoordinator?
+
+    /// The view interface for the presenter.
     weak var view: InfoViewControllerProtocol?
 
     // MARK: - Private properties
 
+    /// The image loader responsible for loading images.
     private let imageLoader: ImageLoader
+
+    /// The current position on the map.
     private var position: YMKCameraPosition?
 
+    /// Mapping of color spaces.
     private let colorSpaceMapping = [1: "sRGB",
                                      2: "Adobe RGB",
                                      0xFFFF: "Uncalibrated"]
 
     // MARK: - Initializers
 
+    /// Initializes the InfoPresenter with an image loader.
+    /// - Parameter imageLoader: The image loader to use for loading images.
     init(imageLoader: ImageLoader) {
         self.imageLoader = imageLoader
     }
 
     // MARK: - Private methods
 
+    /// Extract metadata from image data.
+    /// - Parameter data: The data of the image.
     private func extractMetadata(from data: Data) {
         view?.showActivityIndicator()
         view?.hideGreetingLabel(isHidden: true)
@@ -104,6 +128,9 @@ final class InfoPresenter {
         }
     }
 
+    /// Determine sign based on the given side.
+    /// - Parameter side: The side to determine the sign for.
+    /// - Returns: 1 if side is nil or "N" or "E", otherwise -1.
     private func setSign(side: String?) -> Double {
         guard let side = side else { return 1 }
 
