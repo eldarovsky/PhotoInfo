@@ -1,7 +1,7 @@
 <h1>PhotoInfo</h1>
 
 <p><strong>DESCRIPTION:</strong> .</p>
-<p><strong>DETAILS:</strong> UIKit, MVP-C, CocoaPods: Yandex MapKit, SwiftLint</p>
+<p><strong>DETAILS:</strong> UIKit, MVP-C, CocoaPods: <a href="https://yandex.ru/dev/mapkit/doc/en/ios/generated/getting_started">Yandex MapKit</a>, <a href="https://github.com/realm/SwiftLint">SwiftLint</a></p>
 <details>
 <summary><strong>INSTALLATION</strong></summary>
 
