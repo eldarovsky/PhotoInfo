@@ -71,8 +71,8 @@ final class InfoViewController: UIViewController {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
-        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
@@ -99,10 +99,16 @@ final class InfoViewController: UIViewController {
         let locationButton = UIButton()
         locationButton.isHidden = true
         locationButton.setTitle("Location", for: .normal)
-        locationButton.setTitleColor(.gray, for: .highlighted)
+        locationButton.setTitleColor(.white, for: .normal)
+        locationButton.setTitleColor(.systemGray5, for: .highlighted)
         locationButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         locationButton.backgroundColor = .systemGreen
         locationButton.layer.cornerRadius = 8
+        locationButton.layer.shadowRadius = 8
+        locationButton.layer.shadowOpacity = 0.15
+        locationButton.layer.masksToBounds = false
+        locationButton.layer.shadowColor = UIColor.black.cgColor
+        locationButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         return locationButton
     }()
 
@@ -113,16 +119,6 @@ final class InfoViewController: UIViewController {
         setupViews()
         addActions()
         requestPhotoLibraryAccess()
-    }
-
-    // MARK: - Initializers
-
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Private methods

@@ -52,11 +52,6 @@ final class InfoPresenter {
     /// The current position on the map.
     private var position: YMKCameraPosition?
 
-    /// Mapping of color spaces.
-    private let colorSpaceMapping = [1: "sRGB",
-                                     2: "Adobe RGB",
-                                     0xFFFF: "Uncalibrated"]
-
     // MARK: - Initializers
 
     /// Initializes the InfoPresenter with an image loader.
@@ -83,30 +78,39 @@ final class InfoPresenter {
 
         let imageMetadata = ImageMetadata(
             dateTimeOriginal: exifData?[kCGImagePropertyExifDateTimeOriginal] as? String,
+            imageWidth: (metadata[kCGImagePropertyPixelWidth] as? Int).map { String($0) },
+            imageHeight: (metadata[kCGImagePropertyPixelHeight] as? Int).map { String($0) },
+
             brand: tiffData?[kCGImagePropertyTIFFMake] as? String,
             model: tiffData?[kCGImagePropertyTIFFModel] as? String,
             lensMake: exifData?[kCGImagePropertyExifLensMake] as? String,
             lensModel: exifData?[kCGImagePropertyExifLensModel] as? String,
+
             aperture: (exifData?[kCGImagePropertyExifApertureValue] as? Double).map {
-                String(format: "%.2f", $0)
+                String(format: "%.0f", $0)
             },
+
             focalLength: exifData?[kCGImagePropertyExifFocalLength] as? String,
             focalLenIn35mmFilm: exifData?[kCGImagePropertyExifFocalLenIn35mmFilm] as? String,
+
             shutterSpeed: (exifData?[kCGImagePropertyExifShutterSpeedValue] as? Double).map {
-                String(format: "%.2f", $0)
+                String(format: "%.0f", $0)
             },
+
             iso: (exifData?[kCGImagePropertyExifISOSpeedRatings] as? [NSNumber])?.first.map { $0.stringValue },
-            colorSpace: (exifData?[kCGImagePropertyExifColorSpace] as? NSNumber).flatMap {
-                colorSpaceMapping[$0.intValue] ?? "Unknown"
-            },
+            colorProfile: metadata[kCGImagePropertyProfileName] as? String,
             city: iptcData?[kCGImagePropertyIPTCCity] as? String,
             location: iptcData?[kCGImagePropertyIPTCSubLocation] as? String,
+
             latitude: (gpsData?[kCGImagePropertyGPSLatitude] as? Double).map {
                 setSign(side: gpsData?[kCGImagePropertyGPSLatitudeRef] as? String) * $0
             },
+
             longitude: (gpsData?[kCGImagePropertyGPSLongitude] as? Double).map {
                 setSign(side: gpsData?[kCGImagePropertyGPSLongitudeRef] as? String) * $0
-            }
+            },
+
+            altitude: (gpsData?[kCGImagePropertyGPSAltitude] as? Double).map { String(format: "%.0f", $0) }
         )
 
         if let latitude = imageMetadata.latitude, let longitude = imageMetadata.longitude {

@@ -14,6 +14,12 @@ struct ImageMetadata {
     /// The original date and time when the image was taken.
     let dateTimeOriginal: String?
 
+    /// The weight of the image.
+    let imageWidth: String?
+
+    /// The height of the image.
+    let imageHeight: String?
+
     /// The brand of the camera used to capture the image.
     let brand: String?
 
@@ -41,8 +47,8 @@ struct ImageMetadata {
     /// The ISO sensitivity setting used to capture the image.
     let iso: String?
 
-    /// The color space of the image.
-    let colorSpace: String?
+    /// The color profile of the image.
+    let colorProfile: String?
 
     /// The city where the image was taken.
     let city: String?
@@ -56,12 +62,15 @@ struct ImageMetadata {
     /// The longitude where the image was taken.
     let longitude: Double?
 
+    /// The altitude where the image was taken.
+    let altitude: String?
+
     /// Converts the metadata properties into a formatted string.
-    ///
     /// - Returns: A string representation of the metadata.
     func toString() -> String {
         let metadataItems: [(String, String?)] = [
             ("Date Time", dateTimeOriginal),
+            ("Image Size", (imageWidth ?? "") + "×" + (imageHeight ?? "")),
             ("Brand", brand),
             ("Model", model),
             ("Lens Make", lensMake),
@@ -71,14 +80,15 @@ struct ImageMetadata {
             ("Focal Length (in 35mm film)", focalLenIn35mmFilm),
             ("Shutter Speed", shutterSpeed),
             ("ISO", iso),
-            ("Color Space", colorSpace),
+            ("Color Profile", colorProfile),
             ("City", city),
-            ("Location", location)
+            ("Location", location),
+            ("Altitude", altitude)
         ]
 
         let metadataStrings: [String] = metadataItems.compactMap { label, value in
             guard let value = value else { return nil }
-            return "\(label): \(value)\n"
+            return "\(label):  \(value)\n"
         }
 
         return metadataStrings.isEmpty ? "No metadata was found" : metadataStrings.joined()
