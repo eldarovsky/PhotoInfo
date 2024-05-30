@@ -22,22 +22,27 @@ NOTE: It takes about 15 minutes to activate API keys.
 ```sh
 https://github.com/eldarovsky/PhotoInfo.git
 ```
+
+3. **Install pods dependencies:**
+
+- open `PhotoInfo` folder in Terminal
+- enter `pod install`
     
-3. **Open the project in Xcode:**
+4. **Open the project in Xcode:**
 
     - Launch Xcode.
     - Select **Open** from the File menu.
     - Navigate to the project folder and select the `.xcworkspace` file.
 
-4. **Enter API key:**
+5. **Enter API key:**
 
     - Go to the `AppDelegate` file and replace `enter_API_key` text with your API key.
     
-5. **Set the Active Scheme:**
+6. **Check Build Options:**
 
-    - In Xcode's toolbar, select the target device or simulator you want to run the app on (preferred: iPhone 15 Pro, iOS 16.5).
+    - Check `PhotoInfo` and `Pods` -> PROJECT and all TARGETS -> Build Settings -> Build Options: `User Script Sandboxing: No`
     
-6. **Build and Run the Project:**
+7. **Build and Run the Project:**
 
    - Click the **Run** button (▶) in Xcode's toolbar.
    - The app will build and launch in the selected simulator or device.
