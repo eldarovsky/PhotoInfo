@@ -24,12 +24,16 @@ https://github.com/eldarovsky/PhotoInfo.git
     - Launch Xcode.
     - Select **Open** from the File menu.
     - Navigate to the project folder and select the `.xcworkspace` file.
+
+4. **Enter API key:**
+
+    - Go to the `AppDelegate` file and replace `enter_API_key` text with your API key.
     
-4. **Set the Active Scheme:**
+5. **Set the Active Scheme:**
 
     - In Xcode's toolbar, select the target device or simulator you want to run the app on (preferred: iPhone 15 Pro, iOS 16.5).
     
-5. **Build and Run the Project:**
+6. **Build and Run the Project:**
 
    - Click the **Run** button (▶) in Xcode's toolbar.
    - The app will build and launch in the selected simulator or device.
