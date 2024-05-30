@@ -1,3 +1,7 @@
+<h1>PhotoInfo</h1>
+
+<p><strong>DESCRIPTION:</strong> .</p>
+<p><strong>DETAILS:</strong> UIKit, MVP-C, CocoaPods: Yandex MapKit, SwiftLint</p>
 <details>
 <summary><strong>INSTALLATION</strong></summary>
 
@@ -39,3 +43,8 @@ https://github.com/eldarovsky/PhotoInfo.git
    - The app will build and launch in the selected simulator or device.
 
 </details>
+
+<p><strong>SCREENSHOTS:</p>
+    
+![1](https://github.com/eldarovsky/PhotoInfo/assets/60284515/b083ba08-c31b-42c8-aa51-f1ec3ea7fd88)
+![2](https://github.com/eldarovsky/PhotoInfo/assets/60284515/92fcddae-f9c0-45bd-b613-faf10be9631c)
