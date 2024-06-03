@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4CFBAD3F4072328D6CC8CA8C /* Pods_PhotoInfo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 038FAB0DDD968F09567ED460 /* Pods_PhotoInfo.framework */; };
+		B841EEBF2C0DA971005C8B12 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B841EEBE2C0DA970005C8B12 /* NetworkError.swift */; };
 		B866C06B2BFF975500E9D942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B866C06A2BFF975500E9D942 /* AppDelegate.swift */; };
 		B866C06D2BFF975500E9D942 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B866C06C2BFF975500E9D942 /* SceneDelegate.swift */; };
 		B866C06F2BFF975500E9D942 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B866C06E2BFF975500E9D942 /* InfoViewController.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		038FAB0DDD968F09567ED460 /* Pods_PhotoInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7416A804C4384BF2D914CF6B /* Pods-PhotoInfo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoInfo.debug.xcconfig"; path = "Target Support Files/Pods-PhotoInfo/Pods-PhotoInfo.debug.xcconfig"; sourceTree = "<group>"; };
+		B841EEBE2C0DA970005C8B12 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		B866C0672BFF975500E9D942 /* PhotoInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B866C06A2BFF975500E9D942 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B866C06C2BFF975500E9D942 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		B8E054CB2C04CA4800076D5C /* ImageLoader */ = {
 			isa = PBXGroup;
 			children = (
+				B841EEBE2C0DA970005C8B12 /* NetworkError.swift */,
 				B894FC092C010D3B00101BE0 /* ImageLoader.swift */,
 			);
 			path = ImageLoader;
@@ -327,6 +330,7 @@
 				B8E054C52C04755000076D5C /* InfoPresenter.swift in Sources */,
 				B8E054D02C050B9700076D5C /* BaseCoordinator.swift in Sources */,
 				B8E054D12C050B9700076D5C /* CoordinatorProtocol.swift in Sources */,
+				B841EEBF2C0DA971005C8B12 /* NetworkError.swift in Sources */,
 				B894FC0A2C010D3B00101BE0 /* ImageLoader.swift in Sources */,
 				B8E054D42C050C2200076D5C /* InfoViewControllerCoordinator.swift in Sources */,
 				B866C06B2BFF975500E9D942 /* AppDelegate.swift in Sources */,

@@ -8,14 +8,6 @@
 
 import Foundation
 
-/// Enumeration representing different network errors that can occur while loading an image.
-enum NetworkError: Error {
-    case invalidURL
-    case networkError
-    case invalidResponse
-    case noData
-}
-
 // MARK: - Image loader protocol
 
 /// Protocol defining the requirements for an image loader.
