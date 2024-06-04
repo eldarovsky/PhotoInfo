@@ -9,6 +9,10 @@
 import UIKit
 import YandexMapsMobile
 
+protocol MapViewControllerCoordinatorProtocol {
+    func finish()
+}
+
 // MARK: - Map view controller coordinator
 
 /// Coordinator responsible for coordinating navigation to the map view.
@@ -45,5 +49,11 @@ final class MapViewControllerCoordinator: BaseCoordinator {
 
         mapPresenter.mapViewControllerCoordinator = self
         navigationController.pushViewController(mapViewController, animated: true)
+    }
+}
+
+extension MapViewControllerCoordinator: MapViewControllerCoordinatorProtocol {
+    func finish() {
+        remove(coordinator: self)
     }
 }

@@ -46,8 +46,6 @@ final class InfoViewControllerCoordinator: BaseCoordinator {
     ///
     /// - Parameter model: The model data for configuring the map view.
     func runMapView(model: MapModel) {
-        removeAllChildCoordinators()
-
         let mapViewControllerCoordinator = MapViewControllerCoordinator(
             navigationController: navigationController,
             model: model

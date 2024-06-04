@@ -53,6 +53,10 @@ final class MapViewController: UIViewController {
     private func showLocation() {
         presenter?.showLocation()
     }
+
+    deinit {
+        presenter?.finish()
+    }
 }
 
 // MARK: - Private extensions

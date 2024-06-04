@@ -18,6 +18,8 @@ protocol MapPresenterProtocol {
 
     /// Retrieves the target point on the map.
     func getTarget() -> YMKPoint
+
+    func finish()
 }
 
 // MARK: - Map presenter
@@ -57,5 +59,9 @@ extension MapPresenter: MapPresenterProtocol {
 
     func getTarget() -> YMKPoint {
         model.position.target
+    }
+
+    func finish() {
+        mapViewControllerCoordinator?.finish()
     }
 }
