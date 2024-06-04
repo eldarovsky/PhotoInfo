@@ -6,8 +6,6 @@
 //  Copyright © 2024 Eldar Abdullin. All rights reserved.
 //
 
-import Foundation
-
 // MARK: - Network Error
 
 /// Enumeration representing different network errors that can occur while loading an image.
