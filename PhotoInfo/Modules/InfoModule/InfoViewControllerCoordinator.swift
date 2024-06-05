@@ -21,7 +21,6 @@ final class InfoViewControllerCoordinator: BaseCoordinator {
     // MARK: - Initializers
 
     /// Initializes the coordinator with a navigation controller.
-    ///
     /// - Parameter navigationController: The navigation controller to be used.
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -43,11 +42,8 @@ final class InfoViewControllerCoordinator: BaseCoordinator {
     }
 
     /// Runs the map view with the provided model.
-    ///
     /// - Parameter model: The model data for configuring the map view.
     func runMapView(model: MapModel) {
-        removeAllChildCoordinators()
-
         let mapViewControllerCoordinator = MapViewControllerCoordinator(
             navigationController: navigationController,
             model: model

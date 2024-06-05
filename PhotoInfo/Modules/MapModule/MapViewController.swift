@@ -42,6 +42,10 @@ final class MapViewController: UIViewController {
         showLocation()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        presenter?.finish()
+    }
+
     // MARK: - Private methods
 
     /// Closes the view controller.
