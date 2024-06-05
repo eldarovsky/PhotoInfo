@@ -25,7 +25,6 @@ final class AppCoordinator: BaseCoordinator {
     // MARK: - Initializers
 
     /// Initializes the app coordinator with a window.
-    ///
     /// - Parameter window: The main window of the application.
     init(window: UIWindow) {
         self.window = window

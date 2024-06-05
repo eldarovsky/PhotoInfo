@@ -9,7 +9,11 @@
 import UIKit
 import YandexMapsMobile
 
+// MARK: - Map view controller coordinator protocol
+
 protocol MapViewControllerCoordinatorProtocol {
+    
+    /// Removes map coordinator from array of coordinators
     func finish()
 }
 

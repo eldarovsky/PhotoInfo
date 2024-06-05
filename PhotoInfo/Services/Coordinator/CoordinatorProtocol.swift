@@ -28,14 +28,12 @@ protocol CoordinatorProtocol: AnyObject {
 extension CoordinatorProtocol {
 
     /// Adds a child coordinator to the `childCoordinators` array.
-    ///
     /// - Parameter coordinator: The coordinator to be added.
     func add(coordinator: CoordinatorProtocol) {
         childCoordinators.append(coordinator)
     }
 
     /// Removes a child coordinator from the `childCoordinators` array.
-    ///
     /// - Parameter coordinator: The coordinator to be removed.
     func remove(coordinator: CoordinatorProtocol) {
         childCoordinators = childCoordinators.filter { $0 !== coordinator }

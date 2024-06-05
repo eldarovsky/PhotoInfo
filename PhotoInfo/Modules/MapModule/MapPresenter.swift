@@ -19,6 +19,7 @@ protocol MapPresenterProtocol {
     /// Retrieves the target point on the map.
     func getTarget() -> YMKPoint
 
+    /// Removes map coordinator from array of coordinators
     func finish()
 }
 
